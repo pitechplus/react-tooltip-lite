@@ -6,7 +6,7 @@ module.exports = {
     './src/index.jsx',
   ],
   output: {
-    path: path.join(__dirname, './'),
+    path: path.join(__dirname, 'dist'),
     filename: 'react-tooltip-lite.min.js',
     library: 'ReactToolTipLite',
     libraryTarget: 'umd',
