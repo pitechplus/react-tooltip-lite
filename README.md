@@ -66,6 +66,11 @@ You can pass in props to define tip direction, styling, etc.  Content is the onl
       <td>the contents of your hover target</td>
     </tr>
     <tr>
+      <td>contentParentId</td>
+      <td>string</td>
+      <td>the id of the DOM element which will hold the tooltip's content HTML</td>
+    </tr>
+    <tr>
       <td>tagName</td>
       <td>string</td>
       <td>html tag used for className</td>

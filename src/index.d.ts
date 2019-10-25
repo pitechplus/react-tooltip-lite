@@ -9,6 +9,7 @@ declare module 'react-tooltip-lite' {
     className?: string;
     color?: string;
     content: React.ReactNode;
+    contentParentId?: string;
     direction?: string;
     distance?: number;
     eventOff?: string;

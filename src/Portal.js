@@ -10,8 +10,14 @@ class Portal extends React.Component {
     super(props);
 
     if (isBrowser) {
+      const parent = this.props.contentParentId ? document.getElementById(this.props.contentParentId) : '';
       this.container = document.createElement('div');
-      document.body.appendChild(this.container);
+
+      if (parent) {
+        parent.appendChild(this.container);
+      } else {
+        document.body.appendChild(this.container);
+      }
 
       this.renderLayer();
     }
@@ -45,6 +51,11 @@ class Portal extends React.Component {
 
 Portal.propTypes = {
   children: PropTypes.node.isRequired,
+  contentParentId: PropTypes.string,
+};
+
+Portal.defaultProps = {
+  contentParentId: undefined,
 };
 
 export default Portal;

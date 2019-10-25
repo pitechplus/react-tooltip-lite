@@ -46,8 +46,8 @@ class App extends React.Component {
         <section>
           <h3>Basic:</h3>
 
-          <div className="flex-spread">
-            <Tooltip content="By default the text is above the element" className="target" tipContentClassName="foo">
+          <div className="flex-spread" id="parentTooltip">
+            <Tooltip content="By default the text is above the element" className="target" tipContentClassName="foo" contentParentId="parentTooltip">
               Target
             </Tooltip>
 

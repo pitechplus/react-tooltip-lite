@@ -26,6 +26,7 @@ class Tooltip extends React.Component {
     className: PropTypes.string,
     color: PropTypes.string,
     content: PropTypes.node.isRequired,
+    contentParentId: PropTypes.string,
     direction: PropTypes.string,
     distance: PropTypes.number,
     eventOff: PropTypes.string,
@@ -50,6 +51,7 @@ class Tooltip extends React.Component {
     background: '',
     className: '',
     color: '',
+    contentParentId: undefined,
     direction: 'up',
     distance: undefined,
     eventOff: undefined,
@@ -192,6 +194,7 @@ class Tooltip extends React.Component {
       children,
       color,
       content,
+      contentParentId,
       direction,
       distance,
       eventOff,
@@ -284,7 +287,7 @@ class Tooltip extends React.Component {
       };
 
       tipPortal = (
-        <Portal>
+        <Portal contentParentId={ contentParentId }>
           <div {...portalProps} className={typeof tipContentClassName !== 'undefined' ? tipContentClassName : className}>
             <span className="react-tooltip-lite" style={tipStyles} ref={(tip) => { this.tip = tip; }}>
               {content}
