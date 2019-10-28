@@ -16,10 +16,6 @@
     "test:storyshots": "jest --config ./test/jest.storyshots.config.json",
     "test": "yarn test:jest && yarn test:storyshots"
   },
-  "files": [
-    "dist",
-    "example"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bsidelinger912/react-tooltip-lite.git"
