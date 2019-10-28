@@ -1,6 +1,6 @@
 {
   "name": "react-tooltip-lite",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "React tooltip, focused on simplicity and performance",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,6 +16,10 @@
     "test:storyshots": "jest --config ./test/jest.storyshots.config.json",
     "test": "yarn test:jest && yarn test:storyshots"
   },
+  "files": [
+    "dist",
+    "example"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bsidelinger912/react-tooltip-lite.git"
