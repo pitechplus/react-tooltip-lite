@@ -75,7 +75,13 @@ function (_React$Component) {
         _reactDom["default"].unmountComponentAtNode(this.container);
       }
 
-      document.body.removeChild(this.container);
+      var parent = this.props.contentParentId ? document.getElementById(this.props.contentParentId) : '';
+
+      if (parent) {
+        parent.removeChild(this.container);
+      } else {
+        document.body.removeChild(this.container);
+      }
     }
   }, {
     key: "renderLayer",

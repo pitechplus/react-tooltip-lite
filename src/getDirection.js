@@ -1,7 +1,7 @@
 /**
  * Checks the intended tip direction and falls back if not enough space
  */
-import { getScrollLeft, getArrowSpacing, minArrowPadding } from './position';
+import { getScrollLeft, getArrowSpacing, minArrowPadding, noArrowDistance } from './positionHelper';
 
 function checkLeftRightWidthSufficient(tip, target, distance, bodyPadding) {
   const targetRect = target.getBoundingClientRect();
@@ -53,7 +53,7 @@ export default function getDirection(currentDirection, tip, target, props, bodyP
   }
 
   const targetRect = target.getBoundingClientRect();
-  const arrowSpacing = getArrowSpacing(props);
+  const arrowSpacing = getArrowSpacing(props, noArrowDistance);
 
   // this is how much space is needed to display the tip above or below the target
   const heightOfTipWithArrow = tip.offsetHeight + arrowSpacing + bodyPadding;

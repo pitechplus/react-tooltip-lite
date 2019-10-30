@@ -5,11 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = positions;
 
-var _getDirection = _interopRequireDefault(require("./getDirection"));
-
 var _positionHelper = require("./positionHelper");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -17,7 +13,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var bodyPadding = 10;
+var bodyPadding = 5;
+var windowWidth = window.innerWidth || document.documentElement.clientWidth;
+var windowHeight = window.innerHeight || document.documentElement.clientHeight;
 /**
  * Gets wrapper's left position for top/bottom tooltips as well as needed width restriction
  */
@@ -30,40 +28,49 @@ function getUpDownPosition(tip, target, state, direction, alignMode, props) {
 
   if (tip) {
     // get wrapper left position
-    var scrollLeft = (0, _positionHelper.getScrollLeft)();
+    var targetLeft = 0;
+    var targetHeight = target.offsetHeight;
+    var targetWidth = target.offsetWidth;
     var targetRect = target.getBoundingClientRect();
-    var targetLeft = targetRect.left + scrollLeft;
-    var halfTargetWidth = Math.round(target.offsetWidth / 2);
-    var tipWidth = Math.min((0, _positionHelper.getTipMaxWidth)(bodyPadding), tip.offsetWidth);
+    var targetLeftInPage = targetRect.left;
+    var halfTargetWidth = Math.round(targetWidth / 2);
+    var tipWidth = tip.offsetWidth;
+    var tipHeight = tip.offsetHeight;
+    var halfTipWidth = Math.round(tipWidth / 2);
     var arrowCenter = targetLeft + halfTargetWidth;
     var arrowLeft = arrowCenter - props.arrowSize;
-    var arrowRight = arrowCenter + props.arrowSize;
+    var rightOfTip;
+    var leftOfTip;
 
     if (alignMode === 'start') {
       left = props.arrow ? Math.min(arrowLeft, targetLeft) : targetLeft;
+      rightOfTip = targetLeftInPage + tipWidth;
+      leftOfTip = targetLeftInPage;
     } else if (alignMode === 'end') {
-      var rightWithArrow = Math.max(arrowRight, targetLeft + target.offsetWidth);
-      var rightEdge = props.arrow ? rightWithArrow : targetLeft + target.offsetWidth;
-      left = Math.max(rightEdge - tipWidth, bodyPadding + scrollLeft);
+      left = targetWidth - tipWidth;
+      rightOfTip = targetLeftInPage + targetWidth;
+      leftOfTip = 0;
     } else {
-      var centeredLeft = targetLeft + halfTargetWidth - Math.round(tipWidth / 2);
-      var availableSpaceOnLeft = bodyPadding + scrollLeft;
-      left = Math.max(centeredLeft, availableSpaceOnLeft);
+      rightOfTip = targetLeftInPage + halfTargetWidth + halfTipWidth;
+      leftOfTip = targetLeftInPage + halfTargetWidth - halfTipWidth;
+      left = halfTipWidth * -1 + halfTargetWidth;
     } // check for right overhang
 
 
-    var rightOfTip = left + tipWidth;
-    var rightOfScreen = scrollLeft + document.documentElement.clientWidth - bodyPadding;
-    var rightOverhang = rightOfTip - rightOfScreen;
+    var rightOverhang = rightOfTip - windowWidth;
 
     if (rightOverhang > 0) {
       left -= rightOverhang;
     }
 
+    if (leftOfTip < 0) {
+      left += 0 - leftOfTip;
+    }
+
     if (direction === 'up') {
-      top = targetRect.top + (0, _positionHelper.getScrollTop)() - (tip.offsetHeight + arrowSpacing);
+      top = tipHeight * -1 - arrowSpacing;
     } else {
-      top = targetRect.bottom + (0, _positionHelper.getScrollTop)() + arrowSpacing;
+      top = targetHeight + arrowSpacing;
     }
   }
 
@@ -83,41 +90,38 @@ function getLeftRightPosition(tip, target, state, direction, alignMode, props) {
   var top = 0;
   var transform = state.showTip ? undefined : 'translateX(-10000000px)';
   var arrowSpacing = (0, _positionHelper.getArrowSpacing)(props);
-  var arrowPadding = props.arrow ? _positionHelper.minArrowPadding : 0;
 
   if (tip) {
-    var scrollTop = (0, _positionHelper.getScrollTop)();
-    var scrollLeft = (0, _positionHelper.getScrollLeft)();
+    var targetHeight = target.offsetHeight;
+    var targetWidth = target.offsetWidth;
+    var halfTargetHeight = Math.round(targetHeight / 2);
+    var tipHeight = tip.offsetHeight;
+    var tipWidth = tip.offsetWidth;
+    var halfTipHeight = Math.round(tipHeight / 2);
     var targetRect = target.getBoundingClientRect();
-    var targetTop = targetRect.top + scrollTop;
-    var halfTargetHeight = Math.round(target.offsetHeight / 2);
-    var arrowTop = targetTop + halfTargetHeight - props.arrowSize;
-    var arrowBottom = targetRect.top + scrollTop + halfTargetHeight + props.arrowSize; // TODO: handle close to edges better
+    var targetTopInPage = targetRect.top;
+    var bottomOfTip; // TODO: handle close to edges better
 
     if (alignMode === 'start') {
-      top = props.arrow ? Math.min(targetTop, arrowTop) : targetTop;
+      top = 0;
+      bottomOfTip = tipHeight + targetTopInPage;
     } else if (alignMode === 'end') {
-      var topForBottomAlign = targetRect.bottom + scrollTop - tip.offsetHeight;
-      top = props.arrow ? Math.max(topForBottomAlign, arrowBottom - tip.offsetHeight) : topForBottomAlign;
+      top = targetHeight - tipHeight;
     } else {
-      // default to middle, but don't go below body
-      var centeredTop = Math.max(targetTop + halfTargetHeight - Math.round(tip.offsetHeight / 2), bodyPadding + scrollTop); // make sure it doesn't go below the arrow
-
-      top = Math.min(centeredTop, arrowTop - arrowPadding);
+      top = halfTargetHeight - halfTipHeight;
     } // check for bottom overhang
 
 
-    var bottomOverhang = top - scrollTop + tip.offsetHeight + bodyPadding - window.innerHeight;
+    var bottomOverhang = bottomOfTip - windowHeight;
 
     if (bottomOverhang > 0) {
-      // try to add the body padding below the tip, but don't offset too far from the arrow
-      top = Math.max(top - bottomOverhang, arrowBottom + arrowPadding - tip.offsetHeight);
+      top -= bottomOverhang;
     }
 
     if (direction === 'right') {
-      left = targetRect.right + arrowSpacing + scrollLeft;
+      left = targetWidth + arrowSpacing;
     } else {
-      left = targetRect.left - arrowSpacing - tip.offsetWidth + scrollLeft;
+      left = -1 * arrowSpacing - tipWidth;
     }
   }
 
@@ -140,11 +144,8 @@ function getArrowStyles(target, tip, direction, state, props) {
     };
   }
 
-  var targetRect = target.getBoundingClientRect();
   var halfTargetHeight = Math.round(target.offsetHeight / 2);
   var halfTargetWidth = Math.round(target.offsetWidth / 2);
-  var scrollTop = (0, _positionHelper.getScrollTop)();
-  var scrollLeft = (0, _positionHelper.getScrollLeft)();
   var arrowSpacing = (0, _positionHelper.getArrowSpacing)(props);
   var borderStyles = {};
 
@@ -161,8 +162,8 @@ function getArrowStyles(target, tip, direction, state, props) {
       }
 
       return _objectSpread({}, borderStyles, {
-        top: state.showTip && tip ? targetRect.top + scrollTop + halfTargetHeight - props.arrowSize : '-10000000px',
-        left: targetRect.right + scrollLeft + arrowSpacing - props.arrowSize
+        top: state.showTip && tip ? halfTargetHeight - props.arrowSize : '-10000000px',
+        left: target.offsetWidth + arrowSpacing - props.arrowSize
       });
 
     case 'left':
@@ -177,8 +178,8 @@ function getArrowStyles(target, tip, direction, state, props) {
       }
 
       return _objectSpread({}, borderStyles, {
-        top: state.showTip && tip ? targetRect.top + scrollTop + halfTargetHeight - props.arrowSize : '-10000000px',
-        left: targetRect.left + scrollLeft - arrowSpacing - 1
+        top: state.showTip && tip ? halfTargetHeight - props.arrowSize : '-10000000px',
+        left: 0 - arrowSpacing - 1
       });
 
     case 'up':
@@ -193,8 +194,8 @@ function getArrowStyles(target, tip, direction, state, props) {
       }
 
       return _objectSpread({}, borderStyles, {
-        left: state.showTip && tip ? targetRect.left + scrollLeft + halfTargetWidth - props.arrowSize : '-10000000px',
-        top: targetRect.top + scrollTop - arrowSpacing
+        left: state.showTip && tip ? halfTargetWidth - props.arrowSize : '-10000000px',
+        top: 0 - arrowSpacing
       });
 
     case 'down':
@@ -210,8 +211,8 @@ function getArrowStyles(target, tip, direction, state, props) {
       }
 
       return _objectSpread({}, borderStyles, {
-        left: state.showTip && tip ? targetRect.left + scrollLeft + halfTargetWidth - props.arrowSize : '-10000000px',
-        top: targetRect.bottom + scrollTop + arrowSpacing - props.arrowSize
+        left: state.showTip && tip ? halfTargetWidth - props.arrowSize : '-10000000px',
+        top: target.offsetHeight
       });
   }
 }
@@ -222,14 +223,7 @@ function getArrowStyles(target, tip, direction, state, props) {
 
 function positions(direction, forceDirection, tip, target, state, props) {
   var alignMode = (0, _positionHelper.parseAlignMode)(direction);
-  var trimmedDirection = direction.split('-')[0];
-  var realDirection = trimmedDirection;
-
-  if (!forceDirection && tip) {
-    var testArrowStyles = props.arrow && getArrowStyles(target, tip, trimmedDirection, state, props);
-    realDirection = (0, _getDirection["default"])(trimmedDirection, tip, target, props, bodyPadding, testArrowStyles);
-  }
-
+  var realDirection = direction.split('-')[0];
   var maxWidth = (0, _positionHelper.getTipMaxWidth)(bodyPadding); // force the tip to display the width we measured everything at when visible
 
   var width;
