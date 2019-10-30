@@ -5,14 +5,13 @@
 
 import { getArrowSpacing, getTipMaxWidth, parseAlignMode } from './positionHelper';
 
-const bodyPadding = 5;
-const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+const bodyPadding = 10;
 
 /**
  * Gets wrapper's left position for top/bottom tooltips as well as needed width restriction
  */
 function getUpDownPosition(tip, target, state, direction, alignMode, props) {
+  const windowWidth = window.innerWidth || document.documentElement.clientWidth;
   let left = -10000000;
   let top;
 
@@ -80,6 +79,7 @@ function getUpDownPosition(tip, target, state, direction, alignMode, props) {
  * gets top position for left/right arrows
  */
 function getLeftRightPosition(tip, target, state, direction, alignMode, props) {
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
   let left = -10000000;
   let top = 0;
 

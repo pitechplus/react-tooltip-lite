@@ -11,14 +11,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var bodyPadding = 5;
-var windowWidth = window.innerWidth || document.documentElement.clientWidth;
-var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+var bodyPadding = 10;
 /**
  * Gets wrapper's left position for top/bottom tooltips as well as needed width restriction
  */
 
 function getUpDownPosition(tip, target, state, direction, alignMode, props) {
+  var windowWidth = window.innerWidth || document.documentElement.clientWidth;
   var left = -10000000;
   var top;
   var transform = state.showTip ? undefined : 'translateX(-10000000px)';
@@ -84,6 +83,7 @@ function getUpDownPosition(tip, target, state, direction, alignMode, props) {
 
 
 function getLeftRightPosition(tip, target, state, direction, alignMode, props) {
+  var windowHeight = window.innerHeight || document.documentElement.clientHeight;
   var left = -10000000;
   var top = 0;
   var transform = state.showTip ? undefined : 'translateX(-10000000px)';
