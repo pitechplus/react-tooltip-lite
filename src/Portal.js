@@ -32,7 +32,13 @@ class Portal extends React.Component {
       ReactDom.unmountComponentAtNode(this.container);
     }
 
-    document.body.removeChild(this.container);
+    const parent = this.props.contentParentId ? document.getElementById(this.props.contentParentId) : '';
+
+    if (parent) {
+      parent.removeChild(this.container);
+    } else {
+      document.body.removeChild(this.container);
+    }
   }
 
   renderLayer() {

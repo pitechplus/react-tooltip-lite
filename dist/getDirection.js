@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = getDirection;
 
-var _position = require("./position");
+var _positionHelper = require("./positionHelper");
 
 /**
  * Checks the intended tip direction and falls back if not enough space
@@ -29,7 +29,7 @@ function checkTargetSufficientlyVisible(target, tip, props) {
 
   if (target.offsetHeight > tip.offsetHeight) {
     var halfTargetHeight = target.offsetHeight / 2;
-    var arrowClearance = props.arrowSize + _position.minArrowPadding;
+    var arrowClearance = props.arrowSize + _positionHelper.minArrowPadding;
     var bottomOverhangAmount = targetRect.bottom - window.innerHeight;
     var topOverhangAmount = -targetRect.top;
     var targetCenterToBottomOfWindow = halfTargetHeight - bottomOverhangAmount;
@@ -42,7 +42,7 @@ function checkTargetSufficientlyVisible(target, tip, props) {
 }
 
 function checkForArrowOverhang(props, arrowStyles, bodyPadding) {
-  var scrollLeft = (0, _position.getScrollLeft)();
+  var scrollLeft = (0, _positionHelper.getScrollLeft)();
   var hasLeftClearance = arrowStyles.left - scrollLeft > bodyPadding;
   var hasRightClearance = arrowStyles.left + props.arrowSize * 2 < scrollLeft + document.documentElement.clientWidth - bodyPadding;
   return !hasLeftClearance || !hasRightClearance;
@@ -55,7 +55,7 @@ function getDirection(currentDirection, tip, target, props, bodyPadding, arrowSt
   }
 
   var targetRect = target.getBoundingClientRect();
-  var arrowSpacing = (0, _position.getArrowSpacing)(props); // this is how much space is needed to display the tip above or below the target
+  var arrowSpacing = (0, _positionHelper.getArrowSpacing)(props, _positionHelper.noArrowDistance); // this is how much space is needed to display the tip above or below the target
 
   var heightOfTipWithArrow = tip.offsetHeight + arrowSpacing + bodyPadding;
   var spaceBelowTarget = window.innerHeight - targetRect.bottom;

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import Portal, { isBrowser } from './Portal';
 import positions from './position';
+import positionsInParent from './positionInParent';
 
 // default colors
 const defaultColor = '#fff';
@@ -260,12 +261,19 @@ class Tooltip extends React.Component {
     let tipPortal;
 
     if (this.state.hasBeenShown) {
-      const currentPositions = positions(direction, forceDirection, this.tip, this.target, { ...this.state, showTip }, {
-        background: useDefaultStyles ? defaultBg : background,
-        arrow,
-        arrowSize,
-        distance,
-      });
+      const currentPositions = contentParentId && document.getElementById(contentParentId)
+        ? positionsInParent(direction, forceDirection, this.tip, this.target, { ...this.state, showTip }, {
+          background: useDefaultStyles ? defaultBg : background,
+          arrow,
+          arrowSize,
+          distance,
+        })
+        : positions(direction, forceDirection, this.tip, this.target, { ...this.state, showTip }, {
+          background: useDefaultStyles ? defaultBg : background,
+          arrow,
+          arrowSize,
+          distance,
+        });
 
       const tipStyles = {
         ...currentPositions.tip,

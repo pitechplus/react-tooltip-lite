@@ -39,6 +39,7 @@ class App extends React.Component {
 
   render() {
     const { tipOpen } = this.state;
+    const text = 'you can have compound alignments you can have compound alignment';
     return (
       <div className="wrapper">
         <h1>React tooltip-lite examples</h1>
@@ -46,8 +47,8 @@ class App extends React.Component {
         <section>
           <h3>Basic:</h3>
 
-          <div className="flex-spread" id="parentTooltip">
-            <Tooltip content="By default the text is above the element" className="target" tipContentClassName="foo" contentParentId="parentTooltip">
+          <div className="flex-spread">
+            <Tooltip content="By default the text is above the element" className="target" tipContentClassName="foo">
               Target
             </Tooltip>
 
@@ -229,7 +230,7 @@ class App extends React.Component {
             </Tooltip>
           </p>
         </section>
-        <section>
+        <section id="qwerty" style={ { position: 'relative' } }>
           <h3>Controlled by props</h3>
 
           <button
@@ -253,9 +254,10 @@ class App extends React.Component {
                 &nbsp;to close it
               </div>
             )}
+            contentParentId="qwerty"
             isOpen={tipOpen}
             tagName="span"
-            direction="down"
+            direction="down-start"
             forceDirection
           >
             click the button
@@ -273,74 +275,279 @@ class App extends React.Component {
           </div>
         </section>
 
+
+        <section>
+          <h3>Alignment</h3>
+
+          <div className="flex-spread">
+            <span id="e1" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="right" className="target" tipContentClassName="" arrow={false} contentParentId="e1">
+              right
+            </Tooltip>
+            </span>
+
+            <span id="e2" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="left" className="target" tipContentClassName="" arrow={false} contentParentId="e2">
+              left
+            </Tooltip>
+            </span>
+
+            <span id="e3" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="down" className="target" tipContentClassName="" arrow={false} contentParentId="e3">
+              down
+            </Tooltip>
+            </span>
+
+            <span id="e4" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="up" className="target" tipContentClassName="" arrow={false} contentParentId="e4">
+              up
+            </Tooltip>
+            </span>
+          </div>
+          <br />
+          <br />
+          <div className="flex-spread">
+            <span id="r1" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="right" className="target" tipContentClassName="" contentParentId="r1">
+              right
+            </Tooltip>
+            </span>
+
+            <span id="r2" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="left" className="target" tipContentClassName="" contentParentId="r2">
+              left
+            </Tooltip>
+            </span>
+
+            <span id="r3" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="down" className="target" tipContentClassName="" contentParentId="r3">
+              down
+            </Tooltip>
+            </span>
+
+            <span id="r4" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="up" className="target" tipContentClassName="" contentParentId="r4">
+              up
+            </Tooltip>
+            </span>
+          </div>
+        </section>
+
+        <section>
+          <h3>Alignment</h3>
+
+          <div className="flex-spread">
+            <Tooltip content="you can have compound alignments you can have compound alignments you can have compound alignments" forceDirection={true} direction="right" className="target" tipContentClassName="" arrow={false} >
+              right
+            </Tooltip>
+
+            <Tooltip content={ text } direction="left" className="target" tipContentClassName="" arrow={false}>
+              left
+            </Tooltip>
+
+            <Tooltip content={ text } direction="down" className="target" tipContentClassName="" arrow={false}>
+              down
+            </Tooltip>
+
+            <Tooltip content={ text } direction="up" className="target" tipContentClassName="" arrow={false}>
+              up
+            </Tooltip>
+          </div>
+          <br />
+          <br />
+          <div className="flex-spread">
+            <Tooltip content={ text } direction="right" className="target" tipContentClassName="">
+              right
+            </Tooltip>
+
+            <Tooltip content={ text } direction="left" className="target" tipContentClassName="">
+              left
+            </Tooltip>
+
+            <Tooltip content={ text } direction="down" className="target" tipContentClassName="">
+              down
+            </Tooltip>
+
+            <Tooltip content={ text } direction="up" className="target" tipContentClassName="">
+              up
+            </Tooltip>
+          </div>
+        </section>
+
+
         <section>
           <h3>Compound Alignment</h3>
 
           <div className="flex-spread">
-            <Tooltip content="you can have compound alignments" direction="right-start" className="target" tipContentClassName="" arrow={false}>
+            <span id="q1" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="right-start" className="target" tipContentClassName="" arrow={false} contentParentId="q1">
+              right-start
+            </Tooltip>
+            </span>
+
+            <span id="q2" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="right-end" className="target" tipContentClassName="" arrow={false} contentParentId="q2">
+              right-end
+            </Tooltip>
+            </span>
+
+            <span id="q3" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="left-start" className="target" tipContentClassName="" arrow={false} contentParentId="q3">
+              left-start
+            </Tooltip>
+            </span>
+
+            <span id="q4" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="left-end" className="target" tipContentClassName="" arrow={false} contentParentId="q4">
+              left-end
+            </Tooltip>
+            </span>
+
+            <span id="q5" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="up-start" className="target" tipContentClassName="" arrow={false} contentParentId="q5">
+              top-start
+            </Tooltip>
+            </span>
+
+            <span id="q6" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="up-end" className="target" tipContentClassName="" arrow={false} contentParentId="q6">
+              top-end
+            </Tooltip>
+            </span>
+
+            <span id="q7" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="down-start" className="target" tipContentClassName="" arrow={false} contentParentId="q7">
+              down-start
+            </Tooltip>
+            </span>
+
+            <span id="q8" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="down-end" className="target" tipContentClassName="" arrow={false} contentParentId="q8">
+              down-end
+            </Tooltip>
+            </span>
+          </div>
+          <br />
+          <br />
+          <div className="flex-spread">
+            <span id="w0" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="right-start" className="target" tipContentClassName="" contentParentId="w0">
+              right-start with arrow
+            </Tooltip>
+            </span>
+
+            <span id="w1" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="right-end" className="target" tipContentClassName="" contentParentId="w1">
+              right-end with arrow
+            </Tooltip>
+            </span>
+
+            <span id="w2" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="left-start" className="target" tipContentClassName="" contentParentId="w2">
+              left-start with arrow
+            </Tooltip>
+            </span>
+
+            <span id="w3" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="left-end" className="target" tipContentClassName="" contentParentId="w3">
+              left-end with arrow
+            </Tooltip>
+            </span>
+
+            <span id="w4" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="down-start" className="target" tipContentClassName="" contentParentId="w4">
+              down-start with arrow
+            </Tooltip>
+            </span>
+
+            <span id="w5" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="down-end" className="target" tipContentClassName="" contentParentId="w5">
+              down-end with arrow
+            </Tooltip>
+            </span>
+
+            <span id="w6" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="up-start" className="target" tipContentClassName="" contentParentId="w6">
+              up-start with arrow
+            </Tooltip>
+            </span>
+
+            <span id="w7" style={{ display: 'inline-block', position: 'relative'}}>
+            <Tooltip content={ text } direction="up-end" className="target" tipContentClassName="" contentParentId="w7">
+              up-end with arrow
+            </Tooltip>
+            </span>
+          </div>
+        </section>
+
+        <section>
+          <h3>Compound Alignment</h3>
+
+          <div className="flex-spread">
+            <Tooltip content={ text } direction="right-start" className="target" tipContentClassName="" arrow={false}>
               right-start
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="right-end" className="target" tipContentClassName="" arrow={false}>
+            <Tooltip content={ text } direction="right-end" className="target" tipContentClassName="" arrow={false}>
               right-end
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="left-start" className="target" tipContentClassName="" arrow={false}>
+            <Tooltip content={ text } direction="left-start" className="target" tipContentClassName="" arrow={false}>
               left-start
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="left-end" className="target" tipContentClassName="" arrow={false}>
+            <Tooltip content={ text } direction="left-end" className="target" tipContentClassName="" arrow={false}>
               left-end
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="up-start" className="target" tipContentClassName="" arrow={false}>
+            <Tooltip content={ text } direction="up-start" className="target" tipContentClassName="" arrow={false}>
               top-start
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="up-end" className="target" tipContentClassName="" arrow={false}>
+            <Tooltip content={ text } direction="up-end" className="target" tipContentClassName="" arrow={false}>
               top-end
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="down-start" className="target" tipContentClassName="" arrow={false}>
+            <Tooltip content={ text } direction="down-start" className="target" tipContentClassName="" arrow={false}>
               down-start
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="down-end" className="target" tipContentClassName="" arrow={false}>
+            <Tooltip content={ text } direction="down-end" className="target" tipContentClassName="" arrow={false}>
               down-end
             </Tooltip>
           </div>
           <br />
           <br />
           <div className="flex-spread">
-            <Tooltip content="you can have compound alignments" direction="right-start" className="target" tipContentClassName="">
+            <Tooltip content={ text } direction="right-start" className="target" tipContentClassName="">
               right-start with arrow
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="right-end" className="target" tipContentClassName="">
+            <Tooltip content={ text } direction="right-end" className="target" tipContentClassName="">
               right-end with arrow
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="left-start" className="target" tipContentClassName="">
+            <Tooltip content={ text } direction="left-start" className="target" tipContentClassName="">
               left-start with arrow
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="left-end" className="target" tipContentClassName="">
+            <Tooltip content={ text } direction="left-end" className="target" tipContentClassName="">
               left-end with arrow
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="down-start" className="target" tipContentClassName="">
+            <Tooltip content={ text } direction="down-start" className="target" tipContentClassName="">
               down-start with arrow
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="down-end" className="target" tipContentClassName="">
+            <Tooltip content={ text } direction="down-end" className="target" tipContentClassName="">
               down-end with arrow
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="up-start" className="target" tipContentClassName="">
+            <Tooltip content={ text } direction="up-start" className="target" tipContentClassName="">
               up-start with arrow
             </Tooltip>
 
-            <Tooltip content="you can have compound alignments" direction="up-end" className="target" tipContentClassName="">
+            <Tooltip content={ text } direction="up-end" className="target" tipContentClassName="">
               up-end with arrow
             </Tooltip>
           </div>
