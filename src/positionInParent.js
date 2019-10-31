@@ -11,7 +11,7 @@ const bodyPadding = 10;
  * Gets wrapper's left position for top/bottom tooltips as well as needed width restriction
  */
 function getUpDownPosition(tip, target, state, direction, alignMode, props) {
-  const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+  const windowWidth = document.documentElement.clientWidth || window.innerWidth;
   let left = -10000000;
   let top;
 
@@ -51,7 +51,7 @@ function getUpDownPosition(tip, target, state, direction, alignMode, props) {
     }
 
     // check for right overhang
-    const rightOverhang = rightOfTip - windowWidth;
+    const rightOverhang = rightOfTip - windowWidth + 5;
     if (rightOverhang > 0) {
       left -= rightOverhang;
     }
@@ -79,7 +79,7 @@ function getUpDownPosition(tip, target, state, direction, alignMode, props) {
  * gets top position for left/right arrows
  */
 function getLeftRightPosition(tip, target, state, direction, alignMode, props) {
-  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  const windowHeight = document.documentElement.clientHeight || window.innerHeight;
   let left = -10000000;
   let top = 0;
 

@@ -17,7 +17,7 @@ var bodyPadding = 10;
  */
 
 function getUpDownPosition(tip, target, state, direction, alignMode, props) {
-  var windowWidth = window.innerWidth || document.documentElement.clientWidth;
+  var windowWidth = document.documentElement.clientWidth || window.innerWidth;
   var left = -10000000;
   var top;
   var transform = state.showTip ? undefined : 'translateX(-10000000px)';
@@ -54,7 +54,7 @@ function getUpDownPosition(tip, target, state, direction, alignMode, props) {
     } // check for right overhang
 
 
-    var rightOverhang = rightOfTip - windowWidth;
+    var rightOverhang = rightOfTip - windowWidth + 5;
 
     if (rightOverhang > 0) {
       left -= rightOverhang;
@@ -83,7 +83,7 @@ function getUpDownPosition(tip, target, state, direction, alignMode, props) {
 
 
 function getLeftRightPosition(tip, target, state, direction, alignMode, props) {
-  var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  var windowHeight = document.documentElement.clientHeight || window.innerHeight;
   var left = -10000000;
   var top = 0;
   var transform = state.showTip ? undefined : 'translateX(-10000000px)';
